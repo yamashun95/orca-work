@@ -1,0 +1,22 @@
+! DLPNO-CCSD(T) def2-TZVP def2-TZVP/C RIJCOSX VeryTightSCF SlowConv
+! CPCM(Water)
+
+%pal
+  nprocs 16
+end
+
+%maxcore 4000
+
+%scf
+  MaxIter 300
+end
+
+%cpcm
+  epsilon 78.36
+  radius[1]  1.20   # H  (MK)
+  radius[6]  1.50   # C  (MK)
+  radius[7]  1.50   # N  (MK)
+  radius[8]  1.40   # O  (MK)
+end
+
+* xyzfile 0 1 backwardopt.xyz

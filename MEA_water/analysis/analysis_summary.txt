@@ -1,0 +1,19 @@
+MEA + H2O + CO2 反応解析サマリー
+============================================================
+
+エネルギー (Hartree):
+  reactant    : -399.09162695 Eh
+  ts          : -399.08744203 Eh
+  product     : -399.09273087 Eh
+
+相対エネルギー (kcal/mol):
+  reactant    :    +0.00 kcal/mol
+  ts          :    +2.63 kcal/mol
+  product     :    -0.69 kcal/mol
+
+振動解析:
+  reactant: 0 個の虚振動
+  ts: 1 個の虚振動
+    -223.41 cm⁻¹
+  product: 1 個の虚振動
+    -9.87 cm⁻¹

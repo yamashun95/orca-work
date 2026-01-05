@@ -29,5 +29,8 @@ __pycache__/
 # Avoid accidentally committing nested git repositories
 **/.git/
 
+# Exclude bundled upstream repo in this workspace
+ORCA_Mechanism_Procedure/
+
 # Misc
 *.pid

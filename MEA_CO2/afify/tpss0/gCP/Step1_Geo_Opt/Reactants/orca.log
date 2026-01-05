@@ -1,0 +1,2215 @@
+
+                                 *****************
+                                 * O   R   C   A *
+                                 *****************
+
+                                            #,                                       
+                                            ###                                      
+                                            ####                                     
+                                            #####                                    
+                                            ######                                   
+                                           ########,                                 
+                                     ,,################,,,,,                         
+                               ,,#################################,,                 
+                          ,,##########################################,,             
+                       ,#########################################, ''#####,          
+                    ,#############################################,,   '####,        
+                  ,##################################################,,,,####,       
+                ,###########''''           ''''###############################       
+              ,#####''   ,,,,##########,,,,          '''####'''          '####       
+            ,##' ,,,,###########################,,,                        '##       
+           ' ,,###''''                  '''############,,,                           
+         ,,##''                                '''############,,,,        ,,,,,,###''
+      ,#''                                            '''#######################'''  
+     '                                                          ''''####''''         
+             ,#######,   #######,   ,#######,      ##                                
+            ,#'     '#,  ##    ##  ,#'     '#,    #''#        ,####,    ,#,          
+            ##       ##  ##   ,#'  ##            #'  '#       #'       ,# #          
+            ##       ##  #######   ##           ,######,      #####,      #          
+            '#,     ,#'  ##    ##  '#,     ,#' ,#      #,     #,   #      #          
+             '#######'   ##     ##  '#######'  #'      '#     '####' #    #          
+
+
+
+                #########################################################
+                #                        -***-                          #
+                #          Department of theory and spectroscopy        #
+                #                                                       #
+                #                      Frank Neese                      #
+                #                                                       #
+                #     Directorship, Architecture, Infrastructure        #
+                #                    SHARK, DRIVERS                     #
+                #        Core code/Algorithms in most modules           #
+                #                                                       #
+                #        Max Planck Institute fuer Kohlenforschung      #
+                #                Kaiser Wilhelm Platz 1                 #
+                #                 D-45470 Muelheim/Ruhr                 #
+                #                      Germany                          #
+                #                                                       #
+                #                  All rights reserved                  #
+                #                        -***-                          #
+                #########################################################
+
+
+                         Program Version 6.1.1  -  RELEASE   -
+                                (GIT: $487d211c$)
+                          ($2025-11-21 10:33:24 +0100$)
+
+
+ With contributions from (in alphabetic order):
+[Max-Planck-Institut fuer Kohlenforschung]                               
+  Daniel Aravena         : Magnetic Suceptibility                        
+  Michael Atanasov       : Ab Initio Ligand Field Theory (pilot matlab implementation)
+  Alexander A. Auer      : GIAO ZORA, VPT2 properties, NMR spectrum      
+  Ute Becker             : All parallelization in ORCA, NUMFREQ, NUMCALC 
+  Giovanni Bistoni       : ED, misc. LED, open-shell LED, HFLD           
+  Dmytro Bykov           : pre 5.0 version of the SCF Hessian            
+  Marcos Casanova-Páez   : Triplet and SCS-CIS(D). UHF-(DLPNO)-IP/EA/STEOM-CCSD. UHF-CVS-IP/STEOM-CCSD   
+  Vijay G. Chilkuri      : MRCI spin determinant printing, contributions to CSF-ICE 
+  Pauline Colinet        : FMM embedding                                 
+  Dipayan Datta          : RHF DLPNO-CCSD density                        
+  Achintya Kumar Dutta   : EOM-CC, STEOM-CC                              
+  Nicolas Foglia         : Exact transition moments, OPA infrastructure, MCD improvements    
+  Dmitry Ganyushin       : Spin-Orbit,Spin-Spin,Magnetic field MRCI      
+  Miquel Garcia-Rates    : C-PCM and meta-GGA Hessian, CCSD/C-PCM, Gaussian charge scheme 
+  Tiago L. C. Gouveia    : GS-ROHF, GS-ROCIS                             
+  Yang Guo               : DLPNO-NEVPT2, F12-NEVPT2, CIM, IAO-localization        
+  Andreas Hansen         : Spin unrestricted coupled pair/coupled cluster methods 
+  Ingolf Harden          : AUTO-CI MPn and infrastructure                
+  Benjamin Helmich-Paris : MC-RPA, TRAH-(SCF,CASSCF), AVAS, COSX integrals, SCF dyn. polar., MC-PDFT, srDFT 
+  Lee Huntington         : MR-EOM, pCC                                   
+  Robert Izsak           : Overlap fitted RIJCOSX, COSX-SCS-MP3, EOM     
+  Riya Kayal             : Wick's Theorem for AUTO-CI, AUTO-CI UHF-CCSDT 
+  Emily Kempfer          : AUTO-CI RHF CISDT and CCSDT, approximate NEVPT4
+  Christian Kollmar      : KDIIS, OOCD, Brueckner-CCSD(T), CCSD density, CASPT2, CASPT2-K, improved NEVPT2 
+  Axel Koslowski         : Symmetry handling                             
+  Simone Kossmann        : meta-GGA functionals, TD-DFT gradient, OOMP2, (MP2 Hessian; deprecated post 5.0) 
+  Lucas Lang             : DCDCAS, Hyperfine gauge corrections, ICE-SOC+SSC
+  Marvin Lechner         : AUTO-CI (C++ implementation), FIC-MRCC        
+  Spencer Leger          : CASSCF response                               
+  Dagmar Lenk            : GEPOL surface, SMD, ORCA-2-JSON               
+  Dimitrios Liakos       : Extrapolation schemes; Compound Job, Property file
+  Dimitrios Manganas     : Further ROCIS development; embedding schemes. LFT, Crystal Embedding 
+  Dimitrios Pantazis     : SARC Basis sets                               
+  Anastasios Papadopoulos: AUTO-CI, single reference methods and gradients 
+  Taras Petrenko         : pre 6.0 DFT Hessian and TD-DFT gradient,  ECA, NRVS 
+  Petra Pikulova         : Analytic Raman intensities                    
+  Peter Pinski           : DLPNO-MP2, DLPNO-MP2 Gradient                 
+  Shashank Vittal Rao    : ES-AILFT, MagRelax                            
+  Christoph Reimann      : Effective Core Potentials                     
+  Marius Retegan         : Local ZFS, SOC                                
+  Christoph Riplinger    : Optimizer, TS searches, QM/MM, DLPNO-CCSD(T), (RO)-DLPNO pert. Triples 
+  Michael Roemelt        : Original ROCIS implementation, recursive CI coupling coefficients
+  Masaaki Saitow         : Open-shell DLPNO-CCSD energy and density      
+  Barbara Sandhoefer     : DKH picture change effects                    
+  Yorick L. A. Schmerwitz: GMF and freeze-and-release deltaSCF, NEB S-IDPP initial path                    
+  Kantharuban Sivalingam : CASSCF convergence/infrastructure, NEVPT2, NEVPT3, NEVPT4(SD), FIC-MRCI and CEPA variants
+  Bernardo de Souza      : ESD, SOC TD-DFT                               
+  Georgi L. Stoychev     : AutoAux, RI-MP2 NMR, DLPNO-MP2 response, X2C  
+  Van Anh Tran           : RI-MP2 g-tensors                              
+  Willem Van den Heuvel  : Paramagnetic NMR                              
+  Zikuan Wang            : NOTCH, Electric field optimization            
+  Frank Wennmohs         : Technical directorship and infrastructure     
+  Hang Xu                : AUTO-CI-Response properties                   
+                                                                         
+[FACCTs GmbH]                                                            
+  Markus Bursch, Nicolas Foglia, Miquel Garcia-Rates, Ingolf Harden, Hagen Neugebauer, Anastasios Papadopoulos, 
+  Christoph Riplinger, Bernardo de Souza, Georgi L. Stoychev                                                    
+                                                                 
+  APM, various basis sets, CI-OPT, improved COSX, DLPNO-Multilevel,           
+  DOCKER, DRACO, updates on ESD, Fragmentator, GOAT, IRC, LR-CPCM, L-BFGS, MBIS, meta-GGA TD-DFT gradient, ML-optimized integration grids, 
+  MM, NACMEs, nearIR, NEB, NEB-TS, NL-DFT gradient (VV10), 2- and 3-layer-ONIOM, interface openCOSMO-RS, QMMM,   
+  Crystal-QMMM, RESP, rigid body optimization, SF, symmetry and pop. for TD-DFT, various functionals, SOLVATOR                                   
+                                                                         
+[Other institutions]                                                     
+  V. Asgeirsson          : NEB                                           
+  Christoph Bannwarth    : sTDA-DFT, sTD-DFT, PBEh-3c, B97-3c, D3        
+  Giovanni Bistoni       : ETS/NOCV, ADLD/ADEX, COVALED                  
+  Martin Brehm           : Molecular dynamics                            
+  Ronald Cardenas        : ETS/NOCV                                      
+  Martina Colucci        : COVALED                                       
+  Sebastian Ehlert       : rSCAN, r2SCAN, r2SCAN-3c, D4, dhf basis sets  
+  Marvin Friede          : D4 for Fr, Ra, Ac-Lr                          
+  Lars Goerigk           : TD-DFT with DH, B97 family of functionals     
+  Stefan Grimme          : VdW corrections, initial TS optimization, DFT functionals, gCP, sTDA/sTD-DF 
+  Waldemar Hujo          : DFT-NL                                        
+  H. Jonsson             : NEB                                           
+  Holger Kruse           : gCP                                           
+  Marcel Mueller         : wB97X-3c, vDZP basis set                      
+  Hagen Neugebauer       : wr2SCAN, Native XTB                           
+  Gianluca Regni         : ADLD/ADEX                                     
+  Tobias Risthaus        : pre 6.0 range-separated hybrid DFT and stability analysis
+  Lukas Wittmann         : regularized MP2, r2SCAN double-hybrids, wr2SCAN        
+                                                                         
+We gratefully acknowledge several colleagues who have allowed us to      
+interface, adapt or use parts of their codes:                            
+  Ed Valeev, F. Pavosevic, A. Kumar             : LibInt (2-el integral package), F12 methods 
+  Garnet Chan, S. Sharma, J. Yang, R. Olivares  : DMRG                   
+  Ulf Ekstrom                                   : XCFun DFT Library      
+  Mihaly Kallay                                 : mrcc  (arbitrary order and MRCC methods)
+  Frank Weinhold                                : gennbo (NPA and NBO analysis)           
+  Simon Mueller                                 : openCOSMO-RS                            
+  Christopher J. Cramer and Donald G. Truhlar   : smd solvation model                     
+  S Lehtola, MJT Oliveira, MAL Marques          : LibXC Library                           
+  Liviu Ungur et al                             : ANISO software                          
+
+
+ Your calculation uses the libint2 library for the computation of 2-el integrals
+ For citations please refer to: http://libint.valeyev.net
+
+ Your ORCA version has been built with support for libXC version: 7.0.0
+ For citations please refer to: https://libxc.gitlab.io
+
+ This ORCA versions uses:
+   CBLAS   interface :  Fast vector & matrix operations
+   LAPACKE interface :  Fast linear algebra routines
+   SCALAPACK package :  Parallel linear algebra routines
+   Shared memory     :  Shared parallel matrices
+   BLAS/LAPACK       :  OpenBLAS 0.3.29  USE64BITINT DYNAMIC_ARCH NO_AFFINITY Haswell SINGLE_THREADED
+        Core in use  :  Haswell
+   Copyright (c) 2011-2014, The OpenBLAS Project
+
+
+  ***********************************
+  * Starting time: Sun Jan  4 14:54:38 2026
+  * Host name:     ldap.yamamoto.home
+  * Process ID:    13800
+  * Working dir.:  /home/yamamoto/Work/chemistry/orca-work/afify/b3lyp/gCP/Step1_Geo_Opt/Reactants
+  ***********************************
+
+NOTE: MaxCore=2000 MB was set to SCF,MP2,MDCI,CIPSI,MRCI,RASCI and CIS
+      => If you want to overwrite this, your respective input block should be placed after the MaxCore statement
+
+
+***************************************
+The coordinates will be read from file: orca.xyz
+***************************************
+
+
+Your calculation utilizes the geometrical counterpoise correction gCP
+Please cite in your paper:
+H.Kruse, S. Grimme J.Chem.Phys., 136, (2012), 154101 
+   
+
+Warning: RI is on but no J-basis has been assigned. Assigning Def2/J (nothing to worry about!)
+================================================================================
+
+----- Orbital basis set information -----
+Your calculation utilizes the basis: def2-TZVP
+   F. Weigend and R. Ahlrichs, Phys. Chem. Chem. Phys. 7, 3297 (2005).
+
+----- AuxJ basis set information -----
+Your calculation utilizes the auxiliary basis: def2/J
+   H-Rn: F. Weigend, Phys. Chem. Chem. Phys. 8, 1057 (2006).
+   Fr-Lr: K. Eichkorn, F. Weigend, O. Treutler, R. Ahlrichs; Theor. Chem. Acc. 97, 119 (1997).
+
+================================================================================
+                                        WARNINGS
+                       Please study these warnings very carefully!
+================================================================================
+
+WARNING: Old DensityContainer found on disk!
+         Will remove this file - 
+         If you want to keep old densities, please start your calculation with a different basename. 
+
+
+WARNING: Geometry Optimization
+  ===> : Switching off AutoStart
+         For restart on a previous wavefunction, please use MOREAD
+
+================================================================================
+                                       INPUT FILE
+================================================================================
+NAME = ./orca.inp
+|  1> !B3LYP DEF2-TZVP
+|  2> !OPT FREQ TightOPT TightSCF defgrid2 GCP(DFT/TZ)
+|  3> %SCF
+|  4>     MaxIter 2000       # Here setting MaxIter to a very high number. Intended for systems that require sometimes 1000 iterations before converging (very rare).
+|  5>     DIISMaxEq 5        # Default value is 5. A value of 15-40 necessary for difficult systems.
+|  6>     directresetfreq 15 # Default value is 15. A value of 1 (very expensive) is sometimes required. A value between 1 and 15 may be more cost-effective.
+|  7> END
+|  8> %cpcm
+|  9>   epsilon 78.36
+| 10> 
+| 11>   radius[1]  1.20   # H  (MK)
+| 12>   radius[6]  1.50   # C  (MK)
+| 13>   radius[7]  1.50   # N  (MK)
+| 14>   radius[8]  1.40   # O  (MK)
+| 15> end
+| 16> %PAL NPROCS 16 END
+| 17> %maxcore 2000 # This indicates you want ORCA to use only 2GB per core maximum, so ORCA will use only 2GB*32=64GB of memory in total.
+| 18> * xyzfile 0 1 orca.xyz 
+| 19> 
+| 20>                          ****END OF INPUT****
+================================================================================
+
+                       *****************************
+                       * Geometry Optimization Run *
+                       *****************************
+
+Geometry optimization settings:
+Update method            Update   .... BFGS
+Choice of coordinates    CoordSys .... (2022) Redundant Internals
+Initial Hessian          InHess   .... Almloef's Model
+Max. no of cycles        MaxIter  .... 50
+
+Convergence Tolerances:
+Energy Change            TolE     ....  1.0000e-06 Eh
+Max. Gradient            TolMAXG  ....  1.0000e-04 Eh/bohr
+RMS Gradient             TolRMSG  ....  3.0000e-05 Eh/bohr
+Max. Displacement        TolMAXD  ....  1.0000e-03 bohr
+RMS Displacement         TolRMSD  ....  6.0000e-04 bohr
+Strict Convergence                .... False
+
+------------------------------------------------------------------------------
+                        ORCA OPTIMIZATION COORDINATE SETUP
+------------------------------------------------------------------------------
+
+The optimization will be done in redundant internal coordinates (2022)
+Making redundant internal coordinates   ...  (2022 redundants) done
+Evaluating the initial hessian          ...  (Almloef) done
+Evaluating the coordinates              ...  done
+Calculating the B-matrix                .... done
+Calculating the G-matrix                .... done
+The number of degrees of freedom        ....  167
+
+    -----------------------------------------------------------------
+                    Redundant Internal Coordinates
+
+
+    -----------------------------------------------------------------
+         Definition                    Initial Value    Approx d2E/dq
+    -----------------------------------------------------------------
+      1. B(C   2,N   1)                  1.4691         0.418528   
+      2. B(C   3,O   0)                  1.4391         0.467301   
+      3. B(C   3,C   2)                  1.5222         0.384404   
+      4. B(H   4,C   2)                  1.0942         0.354546   
+      5. B(H   5,C   2)                  1.0942         0.354571   
+      6. B(H   6,C   3)                  1.0964         0.351701   
+      7. B(H   7,C   3)                  1.0963         0.351912   
+      8. B(H   8,N   1)                  1.0171         0.421589   
+      9. B(H   9,N   1)                  1.0168         0.422081   
+     10. B(H  10,O   0)                  0.9658         0.508920   
+     11. B(O  11,H   5)                  5.2284         0.010000   
+     12. B(O  11,H   9)                  5.0022         0.010000   
+     13. B(O  11,C   2)                  5.4309         0.010000   
+     14. B(O  11,H   8)                  4.6118         0.010000   
+     15. B(O  11,N   1)                  4.4867         0.010000   
+     16. B(C  12,H   4)                  4.9728         0.010000   
+     17. B(C  12,N   1)                  4.2369         0.010000   
+     18. B(C  12,C   2)                  4.9386         0.010000   
+     19. B(C  12,H   9)                  4.8052         0.010000   
+     20. B(C  12,H   5)                  4.6881         0.010000   
+     21. B(C  12,H   8)                  4.5720         0.010000   
+     22. B(C  12,O  11)                  1.1598         1.303526   
+     23. B(O  13,H   5)                  4.3960         0.010000   
+     24. B(O  13,N   1)                  4.2986         0.010000   
+     25. B(O  13,H   9)                  4.8852         0.010000   
+     26. B(O  13,C  12)                  1.1598         1.303500   
+     27. B(O  13,H   8)                  4.8213         0.010000   
+     28. B(O  13,C   2)                  4.6896         0.010000   
+     29. B(O  13,H   4)                  4.5176         0.010000   
+     30. A(C   3,O   0,H  10)          108.1798         0.351412   
+     31. A(H   9,N   1,O  11)          115.0182         0.108301   
+     32. A(C   2,N   1,C  12)          110.1113         0.117444   
+     33. A(H   8,N   1,O  13)          115.2672         0.111562   
+     34. A(H   9,N   1,C  12)          118.4518         0.113563   
+     35. A(O  11,N   1,O  13)           30.5234         0.091056   
+     36. A(H   8,N   1,H   9)          105.9002         0.300803   
+     37. A(O  11,N   1,C  12)           14.9260         0.091238   
+     38. A(H   8,N   1,O  11)           90.6539         0.108296   
+     39. A(C   2,N   1,O  13)           96.1644         0.115134   
+     40. A(C   2,N   1,O  11)          123.1359         0.111351   
+     41. A(H   9,N   1,O  13)          119.8659         0.111568   
+     42. A(C   2,N   1,H   9)          109.5201         0.334334   
+     43. A(C  12,N   1,O  13)           15.5974         0.091617   
+     44. A(C   2,N   1,H   8)          109.4685         0.334269   
+     45. A(H   8,N   1,C  12)          102.8568         0.113556   
+     46. A(H   4,C   2,H   5)          107.2807         0.289427   
+     47. A(C  12,C   2,O  13)           13.5178         0.090127   
+     48. A(O  11,C   2,O  13)           25.1562         0.089724   
+     49. A(N   1,C   2,H   4)          108.5231         0.327621   
+     50. A(H   4,C   2,O  11)           95.1276         0.097853   
+     51. A(N   1,C   2,O  11)           43.7722         0.099540   
+     52. A(H   5,C   2,O  11)           73.6009         0.097853   
+     53. A(C   3,C   2,H   5)          109.1139         0.325018   
+     54. A(O  11,C   2,C  12)           11.6384         0.089609   
+     55. A(H   5,C   2,C  12)           70.4922         0.102781   
+     56. A(H   4,C   2,C  12)           85.4425         0.102780   
+     57. A(N   1,C   2,C  12)           53.6685         0.105407   
+     58. A(C   3,C   2,H   4)          109.2479         0.325014   
+     59. A(C   3,C   2,O  11)          152.6705         0.099425   
+     60. A(H   5,C   2,O  13)           67.8772         0.105397   
+     61. A(H   4,C   2,O  13)           74.2792         0.105397   
+     62. A(N   1,C   2,O  13)           65.6890         0.108522   
+     63. A(N   1,C   2,C   3)          113.8964         0.369994   
+     64. A(N   1,C   2,H   5)          108.5721         0.327625   
+     65. A(C   3,C   2,C  12)          164.1533         0.105227   
+     66. A(H   6,C   3,H   7)          108.3545         0.288722   
+     67. A(C   2,C   3,H   7)          109.9383         0.324616   
+     68. A(O   0,C   3,H   7)          110.1342         0.333237   
+     69. A(C   2,C   3,H   6)          109.8100         0.324584   
+     70. A(O   0,C   3,C   2)          108.4969         0.377093   
+     71. A(O   0,C   3,H   6)          110.1029         0.333204   
+     72. A(N   1,O  11,C  12)           70.2074         0.117905   
+     73. A(N   1,O  11,C   2)           13.0919         0.089829   
+     74. A(C   2,O  11,C  12)           59.2047         0.102631   
+     75. A(N   1,C  12,C   2)           16.2202         0.090643   
+     76. A(C   2,C  12,O  13)           70.9315         0.110217   
+     77. A(C   2,C  12,O  11)          109.1569         0.110217   
+     78. A(N   1,C  12,O  13)           85.2232         0.125784   
+     79. A(N   1,C  12,O  11)           94.8666         0.125785   
+     80. A(N   1,O  13,C  12)           79.1794         0.122797   
+     81. A(N   1,O  13,C   2)           18.1466         0.090796   
+     82. A(C   2,O  13,C  12)           95.5508         0.114246   
+     83. D(H   4,C   2,N   1,C  12)     69.4871         0.020622   
+     84. D(C   3,C   2,N   1,O  11)   -160.4076         0.020622   
+     85. D(C   3,C   2,N   1,H   9)     59.4842         0.020622   
+     86. D(C   3,C   2,N   1,O  13)   -175.7864         0.020622   
+     87. D(C   3,C   2,N   1,H   8)    -56.2130         0.020622   
+     88. D(H   4,C   2,N   1,H   8)   -178.1312         0.020622   
+     89. D(H   5,C   2,N   1,H   8)     65.5691         0.020622   
+     90. D(H   4,C   2,N   1,O  11)     77.6742         0.020622   
+     91. D(H   4,C   2,N   1,H   9)    -62.4339         0.020622   
+     92. D(H   4,C   2,N   1,O  13)     62.2954         0.020622   
+     93. D(C   3,C   2,N   1,C  12)   -168.5948         0.020622   
+     94. D(O   0,C   3,C   2,C  12)    144.0333         0.013806   
+     95. D(C   2,C   3,O   0,H  10)    179.7242         0.017210   
+     96. D(H   7,C   3,O   0,H  10)     59.3505         0.017210   
+     97. D(H   6,C   3,C   2,O  11)     28.9936         0.013806   
+     98. D(H   6,C   3,C   2,H   5)    -62.1386         0.013806   
+     99. D(O   0,C   3,C   2,H   5)     58.2413         0.013806   
+    100. D(O   0,C   3,C   2,N   1)    179.7233         0.013806   
+    101. D(O   0,C   3,C   2,O  11)    149.3735         0.013806   
+    102. D(H   6,C   3,C   2,H   4)   -179.1396         0.013806   
+    103. D(H   6,C   3,C   2,N   1)     59.3434         0.013806   
+    104. D(O   0,C   3,C   2,H   4)    -58.7597         0.013806   
+    105. D(H   6,C   3,O   0,H  10)    -60.0779         0.017210   
+    106. D(H   6,C   3,C   2,C  12)     23.6533         0.013806   
+    107. D(C   2,O  11,N   1,H   8)   -113.9220         0.010000   
+    108. D(C  12,O  11,N   1,C   2)    -31.2768         0.010000   
+    109. D(C  12,O  11,N   1,H   8)   -145.1988         0.010000   
+    110. D(C   2,O  11,N   1,H   9)    138.1588         0.010000   
+    111. D(C   2,O  11,N   1,C  12)     31.2768         0.010000   
+    112. D(C  12,O  11,N   1,H   9)    106.8820         0.010000   
+    113. D(N   1,O  11,C   2,C  12)   -145.3413         0.010000   
+    114. D(N   1,O  11,C   2,H   5)    141.9163         0.010000   
+    115. D(N   1,O  11,C   2,H   4)   -111.5556         0.010000   
+    116. D(N   1,O  11,C   2,C   3)     41.8960         0.010000   
+    117. D(C  12,O  11,C   2,H   5)    -72.7424         0.010000   
+    118. D(C  12,O  11,C   2,H   4)     33.7857         0.010000   
+    119. D(C  12,O  11,C   2,C   3)   -172.7628         0.010000   
+    120. D(C  12,O  11,C   2,N   1)    145.3413         0.010000   
+    121. D(N   1,C  12,C   2,H   4)   -117.0146         0.010000   
+    122. D(N   1,C  12,C   2,C   3)     41.4604         0.010000   
+    123. D(O  13,C  12,C   2,O  11)   -179.9827         0.010000   
+    124. D(O  13,C  12,C   2,H   4)     33.7707         0.010000   
+    125. D(O  13,C  12,C   2,C   3)   -167.7543         0.010000   
+    126. D(O  13,C  12,C   2,N   1)    150.7854         0.010000   
+    127. D(O  11,C  12,C   2,H   5)    103.6093         0.010000   
+    128. D(O  11,C  12,C   2,H   4)   -146.2466         0.010000   
+    129. D(O  11,C  12,C   2,C   3)     12.2284         0.010000   
+    130. D(O  11,C  12,C   2,N   1)    -29.2320         0.010000   
+    131. D(C   2,C  12,N   1,O  11)   -152.4209         0.010000   
+    132. D(C   2,C  12,N   1,O  13)     27.5750         0.010000   
+    133. D(C   2,C  12,N   1,H   9)    127.0945         0.010000   
+    134. D(C   2,C  12,N   1,H   8)   -116.5918         0.010000   
+    135. D(O  13,C  12,N   1,O  11)   -179.9959         0.010000   
+    136. D(O  11,C  12,C   2,O  13)    179.9827         0.010000   
+    137. D(O  13,C  12,N   1,H   9)     99.5196         0.010000   
+    138. D(O  13,C  12,N   1,H   8)   -144.1668         0.010000   
+    139. D(O  13,C  12,N   1,C   2)    -27.5750         0.010000   
+    140. D(O  13,C  12,C   2,H   5)    -76.3734         0.010000   
+    141. D(O  11,C  12,N   1,H   8)     35.8291         0.010000   
+    142. D(O  11,C  12,N   1,C   2)    152.4209         0.010000   
+    143. D(O  11,C  12,N   1,H   9)    -80.4846         0.010000   
+    144. D(N   1,C  12,C   2,H   5)    132.8413         0.010000   
+    145. D(O  11,C  12,N   1,O  13)    179.9959         0.010000   
+    146. D(C   2,C  12,O  11,N   1)      7.8687         0.273046   
+    147. D(N   1,C  12,O  11,C   2)     -7.8687         0.273046   
+    148. D(C   2,O  13,C  12,N   1)      7.8634         0.283924   
+    149. D(N   1,O  13,C  12,C   2)     -7.8634         0.283924   
+    150. D(N   1,O  13,C   3,H   7)    -54.4821         0.010000   
+    151. D(N   1,O  13,C   3,H   6)     64.3438         0.010000   
+    152. D(N   1,O  13,C   3,O   0)   -176.6450         0.010000   
+    153. D(C  12,O  13,C   3,H   7)    -83.0086         0.010000   
+    154. D(C  12,O  13,C   3,O   0)    154.8285         0.010000   
+    155. D(N   1,O  13,C   2,C  12)     25.5603         0.010000   
+    156. D(N   1,O  13,C   2,H   5)    124.1187         0.010000   
+    157. D(N   1,O  13,C   2,H   4)   -119.2948         0.010000   
+    158. D(C  12,O  13,C   2,H   5)     98.5584         0.010000   
+    159. D(C  12,O  13,C   2,H   4)   -144.8551         0.010000   
+    160. D(C  12,O  13,C   3,H   6)     35.8173         0.010000   
+    161. D(C  12,O  13,C   2,N   1)    -25.5603         0.010000   
+    162. D(C   2,O  13,N   1,C  12)   -154.0739         0.010000   
+    163. D(C   2,O  13,N   1,H   9)    116.7161         0.010000   
+    164. D(C   2,O  13,N   1,H   8)   -114.9402         0.010000   
+    165. D(C  12,O  13,N   1,H   9)    -89.2100         0.010000   
+    166. D(C  12,O  13,N   1,H   8)     39.1338         0.010000   
+    167. D(C  12,O  13,N   1,C   2)    154.0739         0.010000   
+    -----------------------------------------------------------------
+
+Number of atoms                         .... 14
+Number of degrees of freedom            .... 167
+
+
+         *************************************************************
+         *                GEOMETRY OPTIMIZATION CYCLE   1            *
+         *************************************************************
+---------------------------------
+CARTESIAN COORDINATES (ANGSTROEM)
+---------------------------------
+  O      1.899062   -0.349416   -0.657427
+  N     -1.696119    0.073259    0.266308
+  C     -0.483794   -0.050549   -0.554122
+  C      0.792232   -0.235033    0.255124
+  H     -0.390954    0.845911   -1.174673
+  H     -0.605810   -0.902449   -1.229902
+  H      0.715142   -1.139993    0.869331
+  H      0.939644    0.622903    0.921461
+  H     -1.779961   -0.739460    0.872049
+  H     -1.606672    0.874446    0.885918
+  H      2.706392   -0.461856   -0.139333
+  O     -5.826104   -0.632633   -1.338399
+  C     -5.144924   -0.212978   -2.178075
+  O     -4.465115    0.206533   -3.018941
+
+----------------------------
+CARTESIAN COORDINATES (A.U.)
+----------------------------
+  NO LB      ZA    FRAG     MASS         X           Y           Z
+   0 O     8.0000    0    15.999    3.588706   -0.660300   -1.242358
+   1 N     7.0000    0    14.007   -3.205201    0.138440    0.503248
+   2 C     6.0000    0    12.011   -0.914238   -0.095523   -1.047140
+   3 C     6.0000    0    12.011    1.497101   -0.444148    0.482115
+   4 H     1.0000    0     1.008   -0.738795    1.598540   -2.219809
+   5 H     1.0000    0     1.008   -1.144816   -1.705382   -2.324178
+   6 H     1.0000    0     1.008    1.351422   -2.154274    1.642798
+   7 H     1.0000    0     1.008    1.775671    1.177116    1.741309
+   8 H     1.0000    0     1.008   -3.363639   -1.397377    1.647934
+   9 H     1.0000    0     1.008   -3.036171    1.652464    1.674143
+  10 H     1.0000    0     1.008    5.114339   -0.872780   -0.263301
+  11 O     8.0000    0    15.999  -11.009740   -1.195503   -2.529207
+  12 C     6.0000    0    12.011   -9.722498   -0.402470   -4.115966
+  13 O     8.0000    0    15.999   -8.437844    0.390291   -5.704971
+
+--------------------------------
+INTERNAL COORDINATES (ANGSTROEM)
+--------------------------------
+ O      0   0   0     0.000000000000     0.00000000     0.00000000
+ N      1   0   0     3.735942354101     0.00000000     0.00000000
+ C      2   1   0     1.469069942712    19.65072576     0.00000000
+ C      1   2   3     1.439064362605    25.05018415   179.31354880
+ H      3   2   1     1.094230998867   108.52307697   237.78129987
+ H      3   2   1     1.094212238383   108.57214843   121.48160431
+ H      4   1   2     1.096423948680   110.10288608   119.96296807
+ H      4   1   2     1.096261108737   110.13422634   239.39141953
+ H      2   1   4     1.017086440567    97.82688076   307.29839745
+ H      2   1   4     1.016768884827    98.92655615    54.84732146
+ H      1   2   3     0.965839794922   133.22996031   179.26024930
+ O      2   1  11     4.486661943699   141.22270336   206.32151888
+ C     12   2   1     1.159815762744    70.20743000   318.19594692
+ O     13  12   2     1.159821153800   179.91013057   177.36381719
+
+---------------------------
+INTERNAL COORDINATES (A.U.)
+---------------------------
+ O      0   0   0     0.000000000000     0.00000000     0.00000000
+ N      1   0   0     7.059907901368     0.00000000     0.00000000
+ C      2   1   0     2.776139863301    19.65072576     0.00000000
+ C      1   2   3     2.719437534410    25.05018415   179.31354880
+ H      3   2   1     2.067796915105   108.52307697   237.78129987
+ H      3   2   1     2.067761462929   108.57214843   121.48160431
+ H      4   1   2     2.071940989678   110.10288608   119.96296807
+ H      4   1   2     2.071633266782   110.13422634   239.39141953
+ H      2   1   4     1.922014827196    97.82688076   307.29839745
+ H      2   1   4     1.921414733816    98.92655615    54.84732146
+ H      1   2   3     1.825172701646   133.22996031   179.26024930
+ O      2   1  11     8.478562329078   141.22270336   206.32151888
+ C     12   2   1     2.191734157391    70.20743000   318.19594692
+ O     13  12   2     2.191744345010   179.91013057   177.36381719
+
+---------------------
+BASIS SET INFORMATION
+---------------------
+There are 4 groups of distinct atoms
+
+ Group   1 Type O   : 11s6p2d1f contracted to 5s3p2d1f pattern {62111/411/11/1}
+ Group   2 Type N   : 11s6p2d1f contracted to 5s3p2d1f pattern {62111/411/11/1}
+ Group   3 Type C   : 11s6p2d1f contracted to 5s3p2d1f pattern {62111/411/11/1}
+ Group   4 Type H   : 5s1p contracted to 3s1p pattern {311/1}
+
+Atom   0O    basis set group =>   1
+Atom   1N    basis set group =>   2
+Atom   2C    basis set group =>   3
+Atom   3C    basis set group =>   3
+Atom   4H    basis set group =>   4
+Atom   5H    basis set group =>   4
+Atom   6H    basis set group =>   4
+Atom   7H    basis set group =>   4
+Atom   8H    basis set group =>   4
+Atom   9H    basis set group =>   4
+Atom  10H    basis set group =>   4
+Atom  11O    basis set group =>   1
+Atom  12C    basis set group =>   3
+Atom  13O    basis set group =>   1
+---------------------------------
+AUXILIARY/J BASIS SET INFORMATION
+---------------------------------
+There are 4 groups of distinct atoms
+
+ Group   1 Type O   : 12s5p4d2f1g contracted to 6s4p3d1f1g pattern {711111/2111/211/2/1}
+ Group   2 Type N   : 12s5p4d2f1g contracted to 6s4p3d1f1g pattern {711111/2111/211/2/1}
+ Group   3 Type C   : 12s5p4d2f1g contracted to 6s4p3d1f1g pattern {711111/2111/211/2/1}
+ Group   4 Type H   : 5s2p1d contracted to 3s1p1d pattern {311/2/1}
+
+Atom   0O    basis set group =>   1
+Atom   1N    basis set group =>   2
+Atom   2C    basis set group =>   3
+Atom   3C    basis set group =>   3
+Atom   4H    basis set group =>   4
+Atom   5H    basis set group =>   4
+Atom   6H    basis set group =>   4
+Atom   7H    basis set group =>   4
+Atom   8H    basis set group =>   4
+Atom   9H    basis set group =>   4
+Atom  10H    basis set group =>   4
+Atom  11O    basis set group =>   1
+Atom  12C    basis set group =>   3
+Atom  13O    basis set group =>   1
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+                             ORCA STARTUP CALCULATIONS
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021, v3 2022-2024                                           
+------------------------------------------------------------------------------
+
+
+----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+Number of atoms                             ...     14
+Number of basis functions                   ...    259
+Number of shells                            ...    105
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Prescreening option                         ... SCHWARTZ
+   Thresh                                   ... 2.500e-11
+   Tcut                                     ... 2.500e-12
+   Tpresel                                  ... 2.500e-12 
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Multipole approximations                    ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+CABS basis                                  ... NOT available
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...    420
+   # of shells in Aux-J                     ...    140
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+
+Checking pre-screening integrals            ... done (  0.0 sec) Dimension = 105
+   => SHARK Basis and OBASIS are compatible. Storing Pre-screening
+Shell pair information
+Shell pair cut-off parameter TPreSel        ...   2.5e-12
+Total number of shell pairs                 ...      5565
+Shell pairs after pre-screening             ...      4281
+Total number of primitive shell pairs       ...     16828
+Primitive shell pairs kept                  ...      9609
+          la=0 lb=0:   1248 shell pairs
+          la=1 lb=0:   1260 shell pairs
+          la=1 lb=1:    338 shell pairs
+          la=2 lb=0:    568 shell pairs
+          la=2 lb=1:    294 shell pairs
+          la=2 lb=2:     74 shell pairs
+          la=3 lb=0:    275 shell pairs
+          la=3 lb=1:    144 shell pairs
+          la=3 lb=2:     62 shell pairs
+          la=3 lb=3:     18 shell pairs
+
+Checking whether 4 symmetric matrices of dimension 259 fit in memory
+:Max Core in MB      =   2000.00
+ MB in use           =      8.64
+ MB left             =   1991.36
+ MB needed           =      1.03
+ Data fit in memory  = YES
+----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+Number of atoms                             ...     14
+Number of basis functions                   ...    259
+Number of shells                            ...    105
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Prescreening option                         ... SCHWARTZ
+   Thresh                                   ... 2.500e-11
+   Tcut                                     ... 2.500e-12
+----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+Number of atoms                             ...     14
+Number of basis functions                   ...    259
+Number of shells                            ...    105
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Prescreening option                         ... SCHWARTZ
+   Thresh                                   ... 2.500e-11
+   Tcut                                     ... 2.500e-12
+   Tpresel                                  ... 2.500e-12 
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Multipole approximations                    ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+CABS basis                                  ... NOT available
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...    420
+   # of shells in Aux-J                     ...    140
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+
+   Tpresel                                  ... 2.500e-12 
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Multipole approximations                    ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+CABS basis                                  ... NOT available
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...    420
+   # of shells in Aux-J                     ...    140
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+
+Checking pre-screening integrals            ... Checking pre-screening integrals            ... done (  0.0 sec) Dimension = 105
+done (  0.0 sec) Dimension = 105
+[file orca_tools/Tool-Parallel/pal3.cpp, line 933]: Error TPAL_WinMatArrayD::Restore - Failed to restore data
+
+   => SHARK Basis and OBASIS are compatible. Storing Pre-screening
+   => SHARK Basis and OBASIS are compatible. Storing Pre-screening
+Shell pair information
+Shell pair cut-off parameter TPreSel        ...   2.5e-12
+Total number of shell pairs                 ...      5565
+Shell pairs after pre-screening             ...      4281
+Total number of primitive shell pairs       ...     16828
+Primitive shell pairs kept                  ...      9609
+          la=0 lb=0:   1248 shell pairs
+          la=1 lb=0:   1260 shell pairs
+          la=1 lb=1:    338 shell pairs
+          la=2 lb=0:    568 shell pairs
+          la=2 lb=1:    294 shell pairs
+          la=2 lb=2:     74 shell pairs
+          la=3 lb=0:    275 shell pairs
+          la=3 lb=1:    144 shell pairs
+          la=3 lb=2:     62 shell pairs
+          la=3 lb=3:     18 shell pairs
+
+Checking whether 4 symmetric matrices of dimension 259 fit in memory
+:Max Core in MB      =   2000.00
+ MB in use           =      8.64
+ MB left             =   1991.36
+ MB needed           =      1.03
+ Data fit in memory  = YES
+Shell pair information
+Shell pair cut-off parameter TPreSel        ...   2.5e-12
+Total number of shell pairs                 ...      5565
+Shell pairs after pre-screening             ...      4281
+Total number of primitive shell pairs       ...     16828
+Primitive shell pairs kept                  ...      9609
+          la=0 lb=0:   1248 shell pairs
+          la=1 lb=0:   1260 shell pairs
+          la=1 lb=1:    338 shell pairs
+          la=2 lb=0:    568 shell pairs
+          la=2 lb=1:    294 shell pairs
+          la=2 lb=2:     74 shell pairs
+          la=3 lb=0:    275 shell pairs
+          la=3 lb=1:    144 shell pairs
+          la=3 lb=2:     62 shell pairs
+          la=3 lb=3:     18 shell pairs
+
+Checking whether 4 symmetric matrices of dimension 259 fit in memory
+:Max Core in MB      =   2000.00
+ MB in use           =      8.64
+ MB left             =   1991.36
+ MB needed           =      1.03
+ Data fit in memory  = YES
+[file orca_tools/SHARK/BasisSets/shark_shpairs.cpp, line 1014]: TShellPairData::Retrieve - Failed to retrieve B      
+
+[file orca_tools/qcmat1.cpp, line 125]: Failed to read data of OrcaObject (read 56 items of 108)!
+
+[file orca_tools/SHARK/BasisSets/shark_shpairs.cpp, line 1030]: TShellPairData::Retrieve - Failed to retrieve PrimPairs  
+
+[file orca_tools/SHARK/BasisSets/shark_shpairs.cpp, line 1026]: TShellPairData::Retrieve - Failed to retrieve DoD1      
+
+[file orca_tools/Tool-Parallel/pal3.cpp, line 933]: Error TPAL_WinMatArrayD::Restore - Failed to restore data
+
+----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+Number of atoms                             ...     14
+Number of basis functions                   ...    259
+Number of shells                            ...    105
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Prescreening option                         ... SCHWARTZ
+   Thresh                                   ... 2.500e-11
+   Tcut                                     ... 2.500e-12
+   Tpresel                                  ... 2.500e-12 
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Multipole approximations                    ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+CABS basis                                  ... NOT available
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...    420
+   # of shells in Aux-J                     ...    140
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+
+Checking pre-screening integrals            ... done (  0.0 sec) Dimension = 105
+   => SHARK Basis and OBASIS are compatible. Storing Pre-screening
+Shell pair information
+Shell pair cut-off parameter TPreSel        ...   2.5e-12
+Total number of shell pairs                 ...      5565
+Shell pairs after pre-screening             ...      4281
+Total number of primitive shell pairs       ...     16828
+Primitive shell pairs kept                  ...      9609
+          la=0 lb=0:   1248 shell pairs
+          la=1 lb=0:   1260 shell pairs
+          la=1 lb=1:    338 shell pairs
+          la=2 lb=0:    568 shell pairs
+          la=2 lb=1:    294 shell pairs
+          la=2 lb=2:     74 shell pairs
+          la=3 lb=0:    275 shell pairs
+          la=3 lb=1:    144 shell pairs
+          la=3 lb=2:     62 shell pairs
+          la=3 lb=3:     18 shell pairs
+
+Checking whether 4 symmetric matrices of dimension 259 fit in memory
+:Max Core in MB      =   2000.00
+ MB in use           =      8.64
+ MB left             =   1991.36
+ MB needed           =      1.03
+ Data fit in memory  = YES
+----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+Number of atoms                             ...     14
+Number of basis functions                   ...    259
+Number of shells                            ...    105
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Prescreening option                         ... SCHWARTZ
+   Thresh                                   ... 2.500e-11
+   Tcut                                     ... 2.500e-12
+   Tpresel                                  ... 2.500e-12 
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Multipole approximations                    ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+CABS basis                                  ... NOT available
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...    420
+   # of shells in Aux-J                     ...    140
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+
+Checking pre-screening integrals            ... done (  0.0 sec) Dimension = 105
+   => SHARK Basis and OBASIS are compatible. Storing Pre-screening
+Shell pair information
+Shell pair cut-off parameter TPreSel        ...   2.5e-12
+Total number of shell pairs                 ...      5565
+Shell pairs after pre-screening             ...      4281
+Total number of primitive shell pairs       ...     16828
+Primitive shell pairs kept                  ...      9609
+          la=0 lb=0:   1248 shell pairs
+          la=1 lb=0:   1260 shell pairs
+          la=1 lb=1:    338 shell pairs
+          la=2 lb=0:    568 shell pairs
+          la=2 lb=1:    294 shell pairs
+          la=2 lb=2:     74 shell pairs
+          la=3 lb=0:    275 shell pairs
+          la=3 lb=1:    144 shell pairs
+          la=3 lb=2:     62 shell pairs
+          la=3 lb=3:     18 shell pairs
+
+Checking whether 4 symmetric matrices of dimension 259 fit in memory
+:Max Core in MB      =   2000.00
+ MB in use           =      8.64
+ MB left             =   1991.36
+ MB needed           =      1.03
+ Data fit in memory  = YES
+[file orca_tools/SHARK/BasisSets/shark_shpairs.cpp, line 1016]: TShellPairData::Retrieve - Failed to retrieve lj     
+
+[file orca_tools/qcmat1.cpp, line 125]: Failed to read data of OrcaObject (read 0 items of 3)!
+
+----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+Number of atoms                             ...     14
+Number of basis functions                   ...    259
+Number of shells                            ...    105
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Prescreening option                         ... SCHWARTZ
+   Thresh                                   ... 2.500e-11
+   Tcut                                     ... 2.500e-12
+   Tpresel                                  ... 2.500e-12 
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Multipole approximations                    ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+CABS basis                                  ... NOT available
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...    420
+   # of shells in Aux-J                     ...    140
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+
+Checking pre-screening integrals            ... done (  0.0 sec) Dimension = 105
+   => SHARK Basis and OBASIS are compatible. Storing Pre-screening
+Shell pair information
+Shell pair cut-off parameter TPreSel        ...   2.5e-12
+Total number of shell pairs                 ...      5565
+Shell pairs after pre-screening             ...      4281
+Total number of primitive shell pairs       ...     16828
+Primitive shell pairs kept                  ...      9609
+          la=0 lb=0:   1248 shell pairs
+          la=1 lb=0:   1260 shell pairs
+          la=1 lb=1:    338 shell pairs
+          la=2 lb=0:    568 shell pairs
+          la=2 lb=1:    294 shell pairs
+          la=2 lb=2:     74 shell pairs
+          la=3 lb=0:    275 shell pairs
+          la=3 lb=1:    144 shell pairs
+          la=3 lb=2:     62 shell pairs
+          la=3 lb=3:     18 shell pairs
+
+Checking whether 4 symmetric matrices of dimension 259 fit in memory
+:Max Core in MB      =   2000.00
+ MB in use           =      8.64
+ MB left             =   1991.36
+ MB needed           =      1.03
+ Data fit in memory  = YES
+----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+Number of atoms                             ...     14
+Number of basis functions                   ...    259
+Number of shells                            ...    105
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Prescreening option                         ... SCHWARTZ
+   Thresh                                   ... 2.500e-11
+   Tcut                                     ... 2.500e-12
+   Tpresel                                  ... 2.500e-12 
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Multipole approximations                    ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+CABS basis                                  ... NOT available
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...    420
+   # of shells in Aux-J                     ...    140
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+
+Checking pre-screening integrals            ... done (  0.0 sec) Dimension = 105
+   => SHARK Basis and OBASIS are compatible. Storing Pre-screening
+Shell pair information
+Shell pair cut-off parameter TPreSel        ...   2.5e-12
+Total number of shell pairs                 ...      5565
+Shell pairs after pre-screening             ...      4281
+Total number of primitive shell pairs       ...     16828
+Primitive shell pairs kept                  ...      9609
+          la=0 lb=0:   1248 shell pairs
+          la=1 lb=0:   1260 shell pairs
+          la=1 lb=1:    338 shell pairs
+          la=2 lb=0:    568 shell pairs
+          la=2 lb=1:    294 shell pairs
+          la=2 lb=2:     74 shell pairs
+          la=3 lb=0:    275 shell pairs
+          la=3 lb=1:    144 shell pairs
+          la=3 lb=2:     62 shell pairs
+          la=3 lb=3:     18 shell pairs
+
+Checking whether 4 symmetric matrices of dimension 259 fit in memory
+:Max Core in MB      =   2000.00
+ MB in use           =     14.42
+ MB left             =   1985.58
+ MB needed           =      1.03
+ Data fit in memory  = YES
+Calculating RI/J V-Matrix + Cholesky decomp.... ----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+Number of atoms                             ...     14
+Number of basis functions                   ...    259
+Number of shells                            ...    105
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Prescreening option                         ... SCHWARTZ
+   Thresh                                   ... 2.500e-11
+   Tcut                                     ... 2.500e-12
+   Tpresel                                  ... 2.500e-12 
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Multipole approximations                    ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+CABS basis                                  ... NOT available
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...    420
+   # of shells in Aux-J                     ...    140
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+
+Checking pre-screening integrals            ... done (  0.0 sec) Dimension = 105
+   => SHARK Basis and OBASIS are compatible. Storing Pre-screening
+Shell pair information
+Shell pair cut-off parameter TPreSel        ...   2.5e-12
+Total number of shell pairs                 ...      5565
+Shell pairs after pre-screening             ...      4281
+Total number of primitive shell pairs       ...     16828
+Primitive shell pairs kept                  ...      9609
+          la=0 lb=0:   1248 shell pairs
+          la=1 lb=0:   1260 shell pairs
+          la=1 lb=1:    338 shell pairs
+          la=2 lb=0:    568 shell pairs
+          la=2 lb=1:    294 shell pairs
+          la=2 lb=2:     74 shell pairs
+          la=3 lb=0:    275 shell pairs
+          la=3 lb=1:    144 shell pairs
+          la=3 lb=2:     62 shell pairs
+          la=3 lb=3:     18 shell pairs
+
+Checking whether 4 symmetric matrices of dimension 259 fit in memory
+:Max Core in MB      =   2000.00
+ MB in use           =     14.42
+ MB left             =   1985.58
+ MB needed           =      1.03
+ Data fit in memory  = YES
+Calculating RI/J V-Matrix + Cholesky decomp.... ----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+Number of atoms                             ...     14
+Number of basis functions                   ...    259
+Number of atoms                             ...     14
+Number of basis functions                   ...    259
+Number of shells                            ...    105
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Prescreening option                         ... SCHWARTZ
+   Thresh                                   ... 2.500e-11
+   Tcut                                     ... 2.500e-12
+Number of shells                            ...    105
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Prescreening option                         ... SCHWARTZ
+   Thresh                                   ... 2.500e-11
+   Tcut                                     ... 2.500e-12
+   Tpresel                                  ... 2.500e-12 
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Multipole approximations                    ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+CABS basis                                  ... NOT available
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...    420
+   # of shells in Aux-J                     ...    140
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+
+   Tpresel                                  ... 2.500e-12 
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Multipole approximations                    ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+CABS basis                                  ... NOT available
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...    420
+   # of shells in Aux-J                     ...    140
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+
+Checking pre-screening integrals            ... Checking pre-screening integrals            ... done (  0.0 sec) Dimension = 105
+done (  0.0 sec) Dimension = 105
+   => SHARK Basis and OBASIS are compatible. Storing Pre-screening
+   => SHARK Basis and OBASIS are compatible. Storing Pre-screening
+Shell pair information
+Shell pair cut-off parameter TPreSel        ...   2.5e-12
+Total number of shell pairs                 ...      5565
+Shell pairs after pre-screening             ...      4281
+Total number of primitive shell pairs       ...     16828
+Primitive shell pairs kept                  ...      9609
+          la=0 lb=0:   1248 shell pairs
+          la=1 lb=0:   1260 shell pairs
+          la=1 lb=1:    338 shell pairs
+          la=2 lb=0:    568 shell pairs
+Shell pair information
+Shell pair cut-off parameter TPreSel        ...   2.5e-12
+Total number of shell pairs                 ...      5565
+Shell pairs after pre-screening             ...      4281
+Total number of primitive shell pairs       ...     16828
+Primitive shell pairs kept                  ...      9609
+          la=0 lb=0:   1248 shell pairs
+          la=1 lb=0:   1260 shell pairs
+          la=1 lb=1:    338 shell pairs
+          la=2 lb=0:    568 shell pairs
+          la=2 lb=1:    294 shell pairs
+          la=2 lb=2:     74 shell pairs
+          la=3 lb=0:    275 shell pairs
+          la=3 lb=1:    144 shell pairs
+          la=2 lb=1:    294 shell pairs
+          la=2 lb=2:     74 shell pairs
+          la=3 lb=0:    275 shell pairs
+          la=3 lb=1:    144 shell pairs
+          la=3 lb=2:     62 shell pairs
+          la=3 lb=3:     18 shell pairs
+
+          la=3 lb=2:     62 shell pairs
+          la=3 lb=3:     18 shell pairs
+
+Checking whether 4 symmetric matrices of dimension 259 fit in memory
+:Checking whether 4 symmetric matrices of dimension 259 fit in memory
+:Max Core in MB      =   2000.00
+ MB in use           =     14.42
+ MB left             =   1985.58
+ MB needed           =      1.03
+ Data fit in memory  = YES
+Max Core in MB      =   2000.00
+ MB in use           =     14.42
+ MB left             =   1985.58
+ MB needed           =      1.03
+ Data fit in memory  = YES
+done (  0.0 sec)
+Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=    259.755951024327 Eh
+Calculating RI/J V-Matrix + Cholesky decomp.... done (  0.0 sec)
+Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=    259.755951024327 Eh
+
+Diagonalization of the overlap matrix:
+
+Diagonalization of the overlap matrix:
+done (  0.0 sec)
+Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=    259.755951024327 Eh
+Calculating RI/J V-Matrix + Cholesky decomp.... 
+Diagonalization of the overlap matrix:
+Smallest eigenvalue                        ... 4.455e-04
+Time for diagonalization                   ...    0.003 sec
+Threshold for overlap eigenvalues          ... 1.000e-07
+Number of eigenvalues below threshold      ... 0
+Calculating RI/J V-Matrix + Cholesky decomp.... Smallest eigenvalue                        ... 4.455e-04
+Time for diagonalization                   ...    0.003 sec
+Threshold for overlap eigenvalues          ... 1.000e-07
+Number of eigenvalues below threshold      ... 0
+done (  0.0 sec)
+Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=    259.755951024327 Eh
+Time for construction of square roots      ...    0.001 sec
+Total time needed                          ...    0.005 sec
+
+-------------------
+DFT GRID GENERATION
+-------------------
+
+General Integration Accuracy     IntAcc      ... 4.388
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 4 (Lebedev-302)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Calculating RI/J V-Matrix + Cholesky decomp.... 
+Diagonalization of the overlap matrix:
+Time for construction of square roots      ...    0.001 sec
+Smallest eigenvalue                        ... 4.455e-04
+Time for diagonalization                   ...    0.003 sec
+Threshold for overlap eigenvalues          ... 1.000e-07
+Number of eigenvalues below threshold      ... 0
+Total time needed                          ...    0.005 sec
+
+-------------------
+DFT GRID GENERATION
+-------------------
+
+General Integration Accuracy     IntAcc      ... 4.388
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 4 (Lebedev-302)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Calculating RI/J V-Matrix + Cholesky decomp.... Calculating RI/J V-Matrix + Cholesky decomp.... Time for construction of square roots      ...    0.001 sec
+Total time needed                          ...    0.005 sec
+
+-------------------
+DFT GRID GENERATION
+-------------------
+
+General Integration Accuracy     IntAcc      ... 4.388
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 4 (Lebedev-302)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+done (  0.0 sec)
+Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=    259.755951024327 Eh
+
+Diagonalization of the overlap matrix:
+Smallest eigenvalue                        ... 4.455e-04
+Time for diagonalization                   ...    0.003 sec
+Threshold for overlap eigenvalues          ... 1.000e-07
+Number of eigenvalues below threshold      ... 0
+done (  0.0 sec)
+Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=    259.755951024327 Eh
+Time for construction of square roots      ...    0.001 sec
+Total time needed                          ...    0.005 sec
+
+-------------------
+DFT GRID GENERATION
+-------------------
+
+General Integration Accuracy     IntAcc      ... 4.388
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 4 (Lebedev-302)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+done (  0.0 sec)
+Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=    259.755951024327 Eh
+
+Diagonalization of the overlap matrix:
+done (  0.0 sec)
+Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=    259.755951024327 Eh
+
+Diagonalization of the overlap matrix:
+
+Diagonalization of the overlap matrix:
+Smallest eigenvalue                        ... 4.455e-04
+Time for diagonalization                   ...    0.003 sec
+Threshold for overlap eigenvalues          ... 1.000e-07
+Number of eigenvalues below threshold      ... 0
+Time for construction of square roots      ...    0.001 sec
+Total time needed                          ...    0.005 sec
+
+-------------------
+DFT GRID GENERATION
+-------------------
+
+General Integration Accuracy     IntAcc      ... 4.388
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 4 (Lebedev-302)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Smallest eigenvalue                        ... 4.455e-04
+Time for diagonalization                   ...    0.003 sec
+Threshold for overlap eigenvalues          ... 1.000e-07
+Number of eigenvalues below threshold      ... 0
+Smallest eigenvalue                        ... 4.455e-04
+Time for diagonalization                   ...    0.003 sec
+Threshold for overlap eigenvalues          ... 1.000e-07
+Number of eigenvalues below threshold      ... 0
+Smallest eigenvalue                        ... 4.455e-04
+Time for diagonalization                   ...    0.003 sec
+Threshold for overlap eigenvalues          ... 1.000e-07
+Number of eigenvalues below threshold      ... 0
+Time for construction of square roots      ...    0.001 sec
+Total time needed                          ...    0.005 sec
+
+-------------------
+DFT GRID GENERATION
+-------------------
+
+General Integration Accuracy     IntAcc      ... 4.388
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 4 (Lebedev-302)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Time for construction of square roots      ...    0.001 sec
+Time for construction of square roots      ...    0.001 sec
+Total time needed                          ...    0.005 sec
+Total time needed                          ...    0.005 sec
+
+-------------------
+DFT GRID GENERATION
+-------------------
+
+-------------------
+DFT GRID GENERATION
+-------------------
+
+General Integration Accuracy     IntAcc      ... 4.388
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+
+General Integration Accuracy     IntAcc      ... 4.388
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 4 (Lebedev-302)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Angular Grid (max. ang.)         AngularGrid ... 4 (Lebedev-302)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+
+Total number of grid points                  ...    65293
+Total number of batches                      ...     1027
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     4664
+Total number of grid points                  ...    65293
+Total number of batches                      ...     1027
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     4664
+Total number of grid points                  ...    65293
+Total number of batches                      ...     1027
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     4664
+
+--------------------
+COSX GRID GENERATION
+--------------------
+
+GRIDX 1
+-------
+General Integration Accuracy     IntAcc      ... 3.816
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+
+--------------------
+COSX GRID GENERATION
+--------------------
+
+GRIDX 1
+-------
+General Integration Accuracy     IntAcc      ... 3.816
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+
+--------------------
+COSX GRID GENERATION
+--------------------
+
+GRIDX 1
+-------
+General Integration Accuracy     IntAcc      ... 3.816
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Total number of grid points                  ...    65293
+Total number of batches                      ...     1027
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     4664
+
+--------------------
+COSX GRID GENERATION
+--------------------
+
+GRIDX 1
+-------
+General Integration Accuracy     IntAcc      ... 3.816
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Total number of grid points                  ...    65293
+Total number of batches                      ...     1027
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     4664
+
+--------------------
+COSX GRID GENERATION
+--------------------
+
+GRIDX 1
+-------
+General Integration Accuracy     IntAcc      ... 3.816
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Total number of grid points                  ...    65293
+Total number of batches                      ...     1027
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     4664
+Total number of grid points                  ...    65293
+Total number of batches                      ...     1027
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     4664
+Total number of grid points                  ...    65293
+Total number of batches                      ...     1027
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     4664
+
+--------------------
+COSX GRID GENERATION
+--------------------
+
+GRIDX 1
+-------
+General Integration Accuracy     IntAcc      ... 3.816
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+
+--------------------
+COSX GRID GENERATION
+--------------------
+
+GRIDX 1
+-------
+General Integration Accuracy     IntAcc      ... 3.816
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+
+--------------------
+COSX GRID GENERATION
+--------------------
+
+GRIDX 1
+-------
+General Integration Accuracy     IntAcc      ... 3.816
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Total number of grid points                  ...     8338
+Total number of batches                      ...       76
+Average number of points per batch           ...      109
+Average number of grid points per atom       ...      596
+[file orca_tools/Tool-Numint/qcgrid.cpp, line 4851]: Error: the number of points read from the grid does not match the expectation
+
+Total number of grid points                  ...     8338
+Total number of batches                      ...       76
+Average number of points per batch           ...      109
+Average number of grid points per atom       ...      596
+[file orca_tools/Tool-Numint/qcgrid.cpp, line 4851]: Error: the number of points read from the grid does not match the expectation
+
+Total number of grid points                  ...     8338
+Total number of batches                      ...       76
+Average number of points per batch           ...      109
+Average number of grid points per atom       ...      596
+UseSFitting                                  ... on
+Total number of grid points                  ...     8338
+Total number of batches                      ...       76
+Average number of points per batch           ...      109
+Average number of grid points per atom       ...      596
+Total number of grid points                  ...     8338
+Total number of batches                      ...       76
+Average number of points per batch           ...      109
+Average number of grid points per atom       ...      596
+[file orca_tools/Tool-Numint/qcgrid.cpp, line 4851]: Error: the number of points read from the grid does not match the expectation
+
+Total number of grid points                  ...     8338
+Total number of batches                      ...       76
+Average number of points per batch           ...      109
+Total number of grid points                  ...     8338
+Total number of batches                      ...       76
+Average number of points per batch           ...      109
+Average number of grid points per atom       ...      596
+Average number of grid points per atom       ...      596
+UseSFitting                                  ... on
+UseSFitting                                  ... on
+
+GRIDX 2
+-------
+General Integration Accuracy     IntAcc      ... 4.020
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 2 (Lebedev-110)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Total number of grid points                  ...     8338
+Total number of batches                      ...       76
+Average number of points per batch           ...      109
+Average number of grid points per atom       ...      596
+UseSFitting                                  ... on
+
+GRIDX 2
+-------
+General Integration Accuracy     IntAcc      ... 4.020
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 2 (Lebedev-110)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+
+GRIDX 2
+-------
+General Integration Accuracy     IntAcc      ... 4.020
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 2 (Lebedev-110)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+
+GRIDX 2
+-------
+General Integration Accuracy     IntAcc      ... 4.020
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 2 (Lebedev-110)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Total number of grid points                  ...    18333
+Total number of batches                      ...      149
+Average number of points per batch           ...      123
+Average number of grid points per atom       ...     1310
+UseSFitting                                  ... on
+Total number of grid points                  ...    18333
+Total number of batches                      ...      149
+Average number of points per batch           ...      123
+Average number of grid points per atom       ...     1310
+Total number of grid points                  ...    18333
+Total number of batches                      ...      149
+Average number of points per batch           ...      123
+Average number of grid points per atom       ...     1310
+UseSFitting                                  ... on
+UseSFitting                                  ... on
+Total number of grid points                  ...    18333
+Total number of batches                      ...      149
+Average number of points per batch           ...      123
+Average number of grid points per atom       ...     1310
+UseSFitting                                  ... on
+
+GRIDX 3
+-------
+General Integration Accuracy     IntAcc      ... 4.338
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 3 (Lebedev-194)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+
+GRIDX 3
+-------
+General Integration Accuracy     IntAcc      ... 4.338
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 3 (Lebedev-194)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+
+GRIDX 3
+-------
+General Integration Accuracy     IntAcc      ... 4.338
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 3 (Lebedev-194)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+
+GRIDX 3
+-------
+General Integration Accuracy     IntAcc      ... 4.338
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 3 (Lebedev-194)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... mBecke (2022)
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+Angular grids for H and He will be reduced by one unit
+
+Total number of grid points                  ...    40351
+Total number of batches                      ...      324
+Average number of points per batch           ...      124
+Average number of grid points per atom       ...     2882
+UseSFitting                                  ... on
+Total number of grid points                  ...    40351
+Total number of batches                      ...      324
+Average number of points per batch           ...      124
+Average number of grid points per atom       ...     2882
+Total number of grid points                  ...    40351
+Total number of batches                      ...      324
+Average number of points per batch           ...      124
+Average number of grid points per atom       ...     2882
+UseSFitting                                  ... on
+UseSFitting                                  ... on
+Total number of grid points                  ...    40351
+Total number of batches                      ...      324
+Average number of points per batch           ...      124
+Average number of grid points per atom       ...     2882
+UseSFitting                                  ... on
+Grids setup in   0.5 sec
+Initializing property integral containers    ... done (  0.0 sec)
+
+SHARK setup successfully completed in   0.5 seconds
+
+Maximum memory used throughout the entire STARTUP-calculation: 34.3 MB
+Grids setup in   0.5 sec
+Initializing property integral containers    ... Grids setup in   0.5 sec
+Initializing property integral containers    ... done (  0.0 sec)
+
+SHARK setup successfully completed in   0.5 seconds
+done (  0.0 sec)
+
+SHARK setup successfully completed in   0.6 seconds
+
+Maximum memory used throughout the entire STARTUP-calculation: 34.3 MB
+
+Maximum memory used throughout the entire STARTUP-calculation: 34.3 MB
+Grids setup in   0.5 sec
+Initializing property integral containers    ... done (  0.0 sec)
+
+SHARK setup successfully completed in   0.6 seconds
+
+Maximum memory used throughout the entire STARTUP-calculation: 34.3 MB
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 0 PID 13812 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 1 PID 13813 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 2 PID 13814 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 3 PID 13815 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 6 PID 13818 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 7 PID 13819 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 8 PID 13820 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 9 PID 13821 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 12 PID 13824 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 13 PID 13825 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 14 PID 13826 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 15 PID 13827 RUNNING AT ldap.yamamoto.home
+=   KILLED BY SIGNAL: 6 (Aborted)
+===================================================================================
+
+ORCA finished by error termination in Startup
+Calling Command: mpirun -np 16  /home/yamamoto/orca_6_1_1/orca_startup_mpi ./orca.int.tmp ./orca 
+[file orca_tools/qcmsg.cpp, line 394]: 
+  .... aborting the run
+

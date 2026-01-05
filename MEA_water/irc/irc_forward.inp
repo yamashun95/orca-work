@@ -1,0 +1,19 @@
+! TPSS0 def2-TZVP RIJCOSX TightSCF SlowConv IRC
+
+%pal
+  nprocs 8
+end
+
+%maxcore 4000
+
+%cpcm
+  smd false
+  epsilon 78.36   # water
+end
+
+%irc
+  Direction Forward
+  MaxIter 20
+end
+
+* xyzfile 0 1 tsopt_freq.xyz

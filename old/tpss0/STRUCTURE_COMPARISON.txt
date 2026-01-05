@@ -1,0 +1,87 @@
+=====================================
+構造最適化 詳細比較
+=====================================
+
+【3つの重要な構造】
+
+1. IRC開始点 (反応物側) 
+   ファイル: forward_init.xyz
+   エネルギー: -399.091599 Eh
+   用途: Forward最適化の出発点
+
+2. IRC終端点 (生成物側)
+   ファイル: backward_init.xyz  
+   エネルギー: -399.091837 Eh
+   用途: Backward最適化の出発点
+
+3. Forward最適化後
+   ファイル: forward_opt.xyz
+   エネルギー: -399.093498 Eh
+   変化: -0.001899 Eh (-5.04 kJ/mol)
+
+4. Backward最適化後
+   ファイル: backward_opt.xyz
+   エネルギー: -399.091955 Eh
+   変化: -0.000118 Eh (-0.31 kJ/mol)
+
+=====================================
+エネルギープロファイル（相対値）
+=====================================
+
+反応物側構造:  
+  IRC開始点 ←→ Forward最適化後
+  -399.091599  →  -399.093498  (ΔE = -5.04 kJ/mol)
+
+生成物側構造:
+  IRC終端点 ←→ Backward最適化後  
+  -399.091837  →  -399.091955  (ΔE = -0.31 kJ/mol)
+
+エネルギー差:
+  Forward最適化後 vs Backward最適化後
+  -399.093498 vs -399.091955
+  差: -0.001543 Eh (-4.08 kJ/mol)
+  → Forward側が安定
+
+=====================================
+計算統計
+=====================================
+
+Forward最適化:
+  初期→最終: -399.091599 → -399.093498 Eh
+  変化: -0.001899 Eh 
+  最適化サイクル: 23
+  計算時間: 9分56秒
+
+Backward最適化:
+  初期→最終: -399.091837 → -399.091955 Eh
+  変化: -0.000118 Eh
+  最適化サイクル: 9
+  計算時間: 2分13秒
+
+総計算時間: 12分09秒
+
+=====================================
+ファイル場所
+=====================================
+
+Forward計算関連:
+  /home/yamamoto/Work/chemistry/orca-work/MEA_CO2_water_afify/forwardopt/
+    ├─ forward_init.xyz (初期構造)
+    ├─ forward_opt.xyz (最適化構造)
+    ├─ forward_opt.log (詳細ログ)
+    ├─ forward_opt_trj.xyz (最適化軌跡)
+    └─ forward_opt.gbw (波動関数)
+
+Backward計算関連:
+  /home/yamamoto/Work/chemistry/orca-work/MEA_CO2_water_afify/backwardopt/
+    ├─ backward_init.xyz (初期構造)
+    ├─ backward_opt.xyz (最適化構造)
+    ├─ backward_opt.log (詳細ログ)
+    └─ backward_opt.gbw (波動関数)
+
+IRC計算関連:
+  /home/yamamoto/Work/chemistry/orca-work/MEA_CO2_water_afify/irc/
+    ├─ irc_IRC_Full_trj.xyz (IRC軌跡)
+    └─ ...その他のIRCファイル
+
+=====================================

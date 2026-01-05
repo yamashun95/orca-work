@@ -1,0 +1,80 @@
+========================================
+ORCA 構造最適化計算 - 実行報告書
+========================================
+
+【実行日時】
+実行開始: 2025年12月29日 15時08分
+
+【計算概要】
+プロジェクト: MEA-CO2 水溶媒中反応経路解析
+計算内容: 逆方向反応パス (Backward Optimization)
+初期構造: IRC最終構造 (irc_IRC_Full_trj.xyz の終端構造)
+
+【初期構造情報】
+ファイル: backward_init.xyz
+C-N距離: 5.9941 Å
+エネルギー: -399.091837 Eh
+由来: IRCパス終端（遷移状態から生成物側へのパス完了地点）
+
+【計算設定】
+入力ファイル: backward_opt.inp
+
+1. 計算方法:
+   - 電子相関処理: TPSS0 (ハイブリッド DFT)
+   - 基底関数: def2-TZVP
+   - 積分近似: RIJCOSX (RI-K法による2電子積分計算)
+   - SCF収束基準: TightSCF (デフォルトより厳密)
+   - 収束戦略: SlowConv (安定な収束を優先)
+
+2. 溶媒効果:
+   - CPCM (Conductor-like Polarizable Continuum Model)
+   - 溶媒: 水 (water)
+   - SMD: false (CPCM本来の方法を使用)
+
+3. 最適化設定:
+   - 最大イテレーション: 100
+   - 収束基準: Tight (RMS勾配 < 0.00003, RMSステップ < 0.0006)
+   - 最適化アルゴリズム: L-BFGS
+
+4. 並列処理:
+   - プロセス数: 16 (MPI並列実行)
+   - メモリ: 4000 MB/プロセス
+   - ホスト: ldap.yamamoto.home
+
+【計算進捗】
+ステータス: 実行中 (SCF 2ステップ目を計算中)
+最適化ステップ: 1 完了
+推定残り時間: 数分～数十分
+
+【監視コマンド】
+実行状況確認: 
+  tail -50 /home/yamamoto/Work/chemistry/orca-work/MEA_CO2_water_afify/backwardopt/backward_opt.log
+
+計算完了確認:
+  grep "OPTIMIZATION SUCCESSFUL" /home/yamamoto/Work/chemistry/orca-work/MEA_CO2_water_afify/backwardopt/backward_opt.log
+
+最終構造確認:
+  cat /home/yamamoto/Work/chemistry/orca-work/MEA_CO2_water_afify/backwardopt/backward_opt.xyz
+
+【出力ファイル】
+- backward_opt.log: 詳細なログファイル
+- backward_opt.xyz: 最適化された構造 (最終サイクル)
+- backward_opt.gbw: ORCA用バイナリ波動関数ファイル
+- backward_opt.opt: 最適化情報ファイル
+- backward_opt.property.txt: 計算結果プロパティ
+
+【関連ファイル】
+IRC計算結果:
+  /home/yamamoto/Work/chemistry/orca-work/MEA_CO2_water_afify/irc/irc_IRC_Full_trj.xyz
+  /home/yamamoto/Work/chemistry/orca-work/MEA_CO2_water_afify/irc/irc.log
+
+前向きパス最適化:
+  /home/yamamoto/Work/chemistry/orca-work/MEA_CO2_water_afify/forwardopt/
+
+【注記】
+- IRCパスの最終構造（生成物側）から開始
+- 水溶媒中での構造最適化を実施
+- 厳密な収束基準（Tight）を適用
+- 計算は継続中です。完了までしばらくお待ちください。
+
+========================================

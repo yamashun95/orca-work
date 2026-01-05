@@ -1,0 +1,21 @@
+!DLPNO-CCSD(T) DEF2-TZVP AutoAux
+!TightSCF defgrid2
+%SCF
+    MaxIter 2000       # Here setting MaxIter to a very high number. Intended for systems that require sometimes 1000 iterations before converging (very rare).
+    DIISMaxEq 5        # Default value is 5. A value of 15-40 necessary for difficult systems.
+    directresetfreq 15 # Default value is 15. A value of 1 (very expensive) is sometimes required. A value between 1 and 15 may be more cost-effective.
+END
+%cpcm
+  epsilon 78.36
+
+  radius[1]  1.20   # H  (MK)
+  radius[6]  1.50   # C  (MK)
+  radius[7]  1.50   # N  (MK)
+  radius[8]  1.40   # O  (MK)
+end
+%PAL NPROCS 16 END
+%maxcore 2000
+
+* xyzfile 0 1 backward.xyz
+
+

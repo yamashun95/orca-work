@@ -1,0 +1,27 @@
+! TPSS0 def2-TZVP TightSCF SlowConv
+! RIJCOSX
+! ScanTS
+
+%pal
+  nprocs 16
+end
+
+%maxcore 4000
+
+%scf
+  MaxIter 300
+end
+
+%cpcm
+  smd false
+  epsilon 78.36        # water
+end
+
+%geom
+  MaxIter 200
+  scan
+    B 1 12 = 4.0, 1.5, 20
+  end
+end
+
+* xyzfile 0 1 mea_co2.xyz

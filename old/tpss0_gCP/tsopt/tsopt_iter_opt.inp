@@ -1,0 +1,29 @@
+! TPSS0 def2-TZVP RIJCOSX VeryTightSCF SlowConv OptTS VeryTightOpt
+! CPCM(Water) GCP(DFT/TZ)
+
+%pal
+  nprocs 8
+end
+
+%maxcore 4000
+
+%scf
+  MaxIter 300
+end
+
+%cpcm
+  epsilon 78.36
+
+  radius[1]  1.20   # H  (MK)
+  radius[6]  1.50   # C  (MK)
+  radius[7]  1.50   # N  (MK)
+  radius[8]  1.40   # O  (MK)
+end
+
+%geom
+  MaxIter 400
+  Calc_Hess true
+  TS_search EF
+end
+
+* xyzfile 0 1 tsopt.xyz

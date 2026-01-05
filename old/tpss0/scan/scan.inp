@@ -1,0 +1,25 @@
+! TPSS0 def2-TZVP RIJCOSX TightSCF SlowConv Opt
+
+%pal
+  nprocs 16
+end
+
+%maxcore 4000
+
+%scf
+  MaxIter 300
+end
+
+%cpcm
+  smd false
+  solvent "water"
+end
+
+%geom
+  MaxIter 200
+  scan
+    B 1 12 = 3.0, 1.5, 20
+  end
+end
+
+* xyzfile 0 1 afify_mea_co2.xyz

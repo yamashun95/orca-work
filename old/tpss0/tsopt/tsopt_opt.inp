@@ -1,0 +1,23 @@
+! TPSS0 def2-TZVP RIJCOSX TightSCF SlowConv Opt
+
+%pal
+  nprocs 16
+end
+
+%maxcore 4000
+
+%scf
+  MaxIter 300
+end
+
+%cpcm
+  smd false
+  solvent "water"
+end
+
+%geom
+  MaxIter 200
+end
+
+* xyzfile 0 1 ../scan/scan.013.xyz
+

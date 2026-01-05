@@ -1,0 +1,21 @@
+! TPSS0 def2-TZVP RIJCOSX TightSCF SlowConv Opt Freq
+
+%pal
+  nprocs 16
+end
+
+%maxcore 4000
+
+%cpcm
+  smd false
+  epsilon 78.36   # water
+end
+
+%geom
+  MaxIter 200
+  TolE 1e-6
+  TolRMSG 1e-4
+  TolMaxG 3e-4
+end
+
+* xyzfile 0 1 reactant_init.xyz

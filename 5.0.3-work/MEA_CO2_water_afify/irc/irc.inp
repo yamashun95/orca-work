@@ -1,0 +1,28 @@
+! TPSS0 def2-TZVP RIJCOSX TightSCF SlowConv IRC
+! CPCM(Water) GCP(DFT/TZ)
+
+%pal
+  nprocs 16
+end
+
+%maxcore 4000
+
+%scf
+  MaxIter 300
+end
+
+%cpcm
+  smd false
+  solvent "water"
+end
+
+%IRC
+    MaxIter 2000
+    InitHess calc_numfreq
+    Direction both
+    TolMAXG 2.e-3  # Max gradient (a.u.). Currently set to values equivalent to LooseOpt.
+    TolRMSG 5.e-4  # RMS gradient (a.u.). Currently set to values equivalent to LooseOpt.
+    PrintLevel 1
+END
+
+* xyzfile 0 1 tsopt.xyz
