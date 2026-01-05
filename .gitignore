@@ -11,6 +11,7 @@ __pycache__/
 
 # ORCA (large / binary / scratch-like outputs)
 *.gbw
+*.gbw*
 *.densities
 *.densitiesinfo
 *.cpcm
@@ -18,6 +19,15 @@ __pycache__/
 *.engrad
 *.ges
 *.hess
+
+# ORCA scratch/tmp outputs (often huge)
+*.tmp
+*.tmp.*
+*.bas*
+*.last*
+
+# Avoid accidentally committing nested git repositories
+**/.git/
 
 # Misc
 *.pid
