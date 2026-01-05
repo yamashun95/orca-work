@@ -1,0 +1,20 @@
+# Python / Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Editor
+.vscode/
+
+# ORCA (large / binary / scratch-like outputs)
+*.gbw
+*.densities
+*.densitiesinfo
+*.cpcm
+*.cpcm_corr
+*.engrad
+*.ges
+*.hess
+
+# Misc
+*.pid
